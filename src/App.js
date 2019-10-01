@@ -10,10 +10,10 @@ import WeatherContainer from "./components/weather-container/weather-container.c
 import yourHandle from "countrycitystatejson";
 import Select from "react-select";
 
+const API_KEY = "e67098245480152331de72027651bd84";
 class App extends React.Component {
   constructor() {
     super();
-    const API_KEY = "e67098245480152331de72027651bd84";
     this.state = {
       countries: [],
       states: [],
@@ -36,6 +36,7 @@ class App extends React.Component {
 
   // COUNTRY HANDLER
   handleCountry = async selectedCountry => {
+    this.setState({ stateOptions: [] });
     await this.setState({
       selectedCountry
     });
@@ -65,6 +66,9 @@ class App extends React.Component {
     await this.setState({
       selectedState
     });
+    await this.setState({
+      cityOptions: []
+    });
     try {
       const citiesArray = yourHandle.getCities(
         this.state.selectedCountry.value,
@@ -93,17 +97,21 @@ class App extends React.Component {
     console.log("Done");
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
+  handleSubmit = async event => {
+    event.preventDefault();
+    const city = this.state.selectedCity.value;
+    const country = this.state.selectedCountry.value;
+    console.log("Submited");
+    await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`
+    )
+      .then(response => response.json())
+      .then(result => console.log(result));
   };
 
   render() {
     const {
       countries,
-      states,
       selectedCountry,
       selectedState,
       selectedCity
@@ -156,7 +164,11 @@ class App extends React.Component {
                   </Form.Group>
 
                   <Form.Group xs={12} lg={3} role="form">
-                    <Button variant="primary" type="submit">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      disabled={!this.state.selectedCity}
+                    >
                       Check Weather
                     </Button>
                   </Form.Group>

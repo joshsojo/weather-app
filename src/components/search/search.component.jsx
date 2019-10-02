@@ -15,21 +15,11 @@ import {
   setStates,
   setCities
 } from "../../redux/select/select.actions";
+import { getWeather, buttonClicked } from "../../redux/weather/weather.actions";
 
 import "./search.styles.css";
-
 const API_KEY = "e67098245480152331de72027651bd84";
-
 class Search extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     selectedCountry: "",
-  //     selectedState: "",
-  //     selectedCity: ""
-  //   };
-  // }
-
   componentDidMount() {
     const countries = yourHandle.getCountries();
     if (this.props.countries.length > 0) {
@@ -118,6 +108,22 @@ class Search extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const {
+      getWeather,
+      selectedCountry: { selectedCountry },
+      selectedCity: { selectedCity }
+    } = this.props;
+    const country = selectedCountry.value;
+    const city = selectedCity.label;
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`
+    )
+      .then(response => response.json())
+      .then(result => {
+        getWeather({
+          weatherData: result
+        });
+      });
   };
 
   render() {
@@ -127,7 +133,8 @@ class Search extends React.Component {
       cities,
       selectedCountry: { selectedCountry },
       selectedState: { selectedState },
-      selectedCity: { selectedCity }
+      selectedCity: { selectedCity },
+      buttonClicked
     } = this.props;
     return (
       <Row>
@@ -174,6 +181,7 @@ class Search extends React.Component {
 
               <Col xs={12} lg={3} role="form">
                 <Button
+                  onClick={() => buttonClicked(true)}
                   type="submit"
                   variant="primary"
                   disabled={!selectedCity}
@@ -204,7 +212,9 @@ const mapDispatchToProps = disptach => ({
   setCities: item => disptach(setCities(item)),
   selectCountry: item => disptach(selectCountry(item)),
   selectState: item => disptach(selectState(item)),
-  selectCity: item => disptach(selectCity(item))
+  selectCity: item => disptach(selectCity(item)),
+  buttonClicked: () => disptach(buttonClicked()),
+  getWeather: item => disptach(getWeather(item))
 });
 
 export default connect(

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import WeatherContainer from "../../components/weather-container/weather-container.component";
 import Search from "../../components/search/search.component";
@@ -17,4 +18,9 @@ const WeatherPage = () => {
   );
 };
 
-export default WeatherPage;
+const mapStateToProps = ({ weather }) => ({
+  buttonClicked: weather.buttonClicked,
+  weatherData: weather.weatherData
+});
+
+export default connect(mapStateToProps)(WeatherPage);

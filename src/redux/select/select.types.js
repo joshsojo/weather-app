@@ -1,0 +1,10 @@
+const SelectDetailsActionTypes = {
+  SELECT_COUNTRY: "SELECT_COUNTRY",
+  SET_COUNTRIES: "SET_COUNTRIES",
+  SELECT_STATE: "SELECT_STATE",
+  SET_STATES: "SET_STATES",
+  SELECT_CITY: "SELECT_CITY",
+  SET_CITIES: "SET_CITIES"
+};
+
+export default SelectDetailsActionTypes;

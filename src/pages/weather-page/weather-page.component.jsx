@@ -9,17 +9,18 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import WeatherDetails from "../../components/weather-details/weather-details.component";
 import WeatherContainer from "../../components/weather-container/weather-container.component";
 import yourHandle from "countrycitystatejson";
 import Select from "react-select";
+
+import "./weather-page.styles.css";
 
 const API_KEY = "e67098245480152331de72027651bd84";
 const WeatherPage = ({ selectCountry }) => {
   return (
     <div>
       <Container>
-        <h1>Weather App</h1>
+        <h1 className="page-name">Weather App</h1>
         <Row>
           <Col>
             <form>
@@ -54,24 +55,19 @@ const WeatherPage = ({ selectCountry }) => {
                   />
                 </Form.Group>
 
-                <Form.Group xs={12} lg={3} role="form">
+                <Col xs={12} lg={3} role="form">
                   <Button
-                    variant="primary"
                     type="submit"
+                    variant="primary"
                     // disabled={!this.state.selectedCity}
                   >
                     Check Weather
                   </Button>
-                </Form.Group>
+                </Col>
               </Form.Row>
             </form>
           </Col>
         </Row>
-
-        <WeatherDetails
-        // details={this.state.weahter ? this.state.weahter.city : null}
-        />
-
         <WeatherContainer />
       </Container>
     </div>

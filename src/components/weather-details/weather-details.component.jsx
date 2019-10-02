@@ -1,7 +1,6 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import WeatherBadge from "../weather-badge/weather-badge.component";
-import SideDetails from "../side-details/side-details.component";
 
 const WeatherDetails = ({ details }) => {
   return (

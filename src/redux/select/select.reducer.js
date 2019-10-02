@@ -1,6 +1,9 @@
 import SelectDetailsActionTypes from "./select.types";
 
 const INITIAL_STATE = {
+  selectedCountry: "",
+  selectedState: "",
+  selectedCity: "",
   countries: [],
   states: [],
   cities: []

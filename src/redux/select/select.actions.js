@@ -16,7 +16,7 @@ export const selectState = state => ({
 });
 
 export const setStates = states => ({
-  type: SelectDetailsActionTypes.SET_COUNTRIES,
+  type: SelectDetailsActionTypes.SET_STATES,
   payload: states
 });
 

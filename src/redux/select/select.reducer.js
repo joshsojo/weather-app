@@ -3,9 +3,7 @@ import SelectDetailsActionTypes from "./select.types";
 const INITIAL_STATE = {
   countries: [],
   states: [],
-  cities: [],
-  stateOptions: [],
-  cityOptions: []
+  cities: []
 };
 
 const selectDetailsReducer = (state = INITIAL_STATE, action) => {

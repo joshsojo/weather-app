@@ -4,9 +4,6 @@ const INITIAL_STATE = {
   countries: [],
   states: [],
   cities: [],
-  selectedCountry: "",
-  selectedState: "",
-  selectedCity: "",
   stateOptions: [],
   cityOptions: []
 };

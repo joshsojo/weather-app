@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
@@ -6,14 +7,15 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import yourHandle from "countrycitystatejson";
 import Select from "react-select";
+import { setCountries } from "../../redux/select/select.actions";
 
 import "./search.styles.css";
 
 const API_KEY = "e67098245480152331de72027651bd84";
 
 class Search extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selectedCountry: "",
       selectedState: "",
@@ -21,11 +23,24 @@ class Search extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const countries = yourHandle.getCountries();
+    if (!this.props.countries) {
+      countries.map(country => this.props.setCountries.countries.push(country));
+    } else {
+      console.log("Already have list");
+    }
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+  };
+
   render() {
     return (
       <Row>
         <Col>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <Form.Row>
               <Form.Group xs={12} lg={3} as={Col} role="form">
                 <Select
@@ -74,4 +89,15 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+const mapStateToProps = state => ({
+  countries: state.select.countries
+});
+
+const mapDispatchToProps = disptach => ({
+  setCountries: item => disptach(setCountries(item))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);

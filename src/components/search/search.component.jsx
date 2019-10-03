@@ -21,8 +21,9 @@ import "./search.styles.css";
 const API_KEY = "e67098245480152331de72027651bd84";
 class Search extends React.Component {
   componentDidMount() {
-    const countries = yourHandle.getCountries();
-    if (this.props.countries.length > 0) {
+    try {
+      const countries = yourHandle.getCountries();
+      // if (this.props.countries.length < 0) {
       const options = [];
       countries.map(country =>
         options.push({
@@ -30,9 +31,12 @@ class Search extends React.Component {
           label: country.name
         })
       );
-      setCountries({
+      this.props.setCountries({
         countries: options
       });
+      // }
+    } catch (error) {
+      console.log("There was an error getting list of countries");
     }
   }
 

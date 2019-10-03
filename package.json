@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@yazanaabed/react-tabs": "^2.3.6",
     "bootstrap": "^4.3.1",
     "countrycitystatejson": "^0.2.12",
     "react": "^16.10.1",

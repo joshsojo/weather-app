@@ -7,7 +7,7 @@ export const weatherIcon = icon => {
 };
 
 export const formatNumber = num => {
-  if (num <= 1000) return num.toString();
+  if (num < 1000) return num.toString();
   let value = num.toString().split("");
   value = value;
   let count = 0;
@@ -21,4 +21,58 @@ export const formatNumber = num => {
     newNumber.push(value[i]);
   }
   return newNumber.reverse().join("");
+};
+const date = new Date();
+export const getYear = () => date.getFullYear();
+export const getMonth = () => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  return months[date.getMonth()];
+};
+
+export const getDate = () => date.getDate();
+export const getDay = () => {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  return days[date.getDay()];
+};
+
+export const extractTime = dateTime => {
+  const [date, time] = dateTime.split(" ");
+
+  const [hour, min, sec] = time.split(":");
+
+  const [year, month, day] = date.split("-");
+
+  const result = {
+    date: date,
+    time: time,
+    hour: hour,
+    min: min,
+    sec: sec,
+    year: year,
+    month: month,
+    day: day
+  };
+
+  return result;
 };

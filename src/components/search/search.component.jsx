@@ -15,7 +15,7 @@ import {
   setStates,
   setCities
 } from "../../redux/select/select.actions";
-import { getWeather, buttonClicked } from "../../redux/weather/weather.actions";
+import { getWeather } from "../../redux/weather/weather.actions";
 
 import "./search.styles.css";
 const API_KEY = "e67098245480152331de72027651bd84";
@@ -115,15 +115,23 @@ class Search extends React.Component {
     } = this.props;
     const country = selectedCountry.value;
     const city = selectedCity.label;
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`
-    )
-      .then(response => response.json())
-      .then(result => {
-        getWeather({
-          weatherData: result
+    try {
+      fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city},${country}&appid=${API_KEY}`
+      )
+        .then(response => response.json())
+        .then(result => {
+          if (result.cod === "200") {
+            getWeather({
+              weatherData: result
+            });
+          } else {
+            alert("City Now found");
+          }
         });
-      });
+    } catch (error) {
+      alert("There was an error");
+    }
   };
 
   render() {
@@ -133,8 +141,7 @@ class Search extends React.Component {
       cities,
       selectedCountry: { selectedCountry },
       selectedState: { selectedState },
-      selectedCity: { selectedCity },
-      buttonClicked
+      selectedCity: { selectedCity }
     } = this.props;
     return (
       <Row>
@@ -149,7 +156,6 @@ class Search extends React.Component {
                       ? selectedCountry.label
                       : "Select Country"
                   }
-                  // value={selectedCountry.value}
                   onChange={this.handleCountry}
                   options={countries.countries}
                 />
@@ -161,7 +167,6 @@ class Search extends React.Component {
                   placeholder={
                     selectedState.label ? selectedState.label : "Select State"
                   }
-                  // value={selectedState.value}
                   onChange={this.handleState}
                   options={states.states}
                 />
@@ -173,7 +178,6 @@ class Search extends React.Component {
                   placeholder={
                     selectedCity.label ? selectedCity.label : "Select City"
                   }
-                  // value={selectedCity}
                   onChange={this.handleCity}
                   options={cities.cities}
                 />
@@ -181,7 +185,6 @@ class Search extends React.Component {
 
               <Col xs={12} lg={3} role="form">
                 <Button
-                  onClick={() => buttonClicked(true)}
                   type="submit"
                   variant="primary"
                   disabled={!selectedCity}
@@ -213,7 +216,6 @@ const mapDispatchToProps = disptach => ({
   selectCountry: item => disptach(selectCountry(item)),
   selectState: item => disptach(selectState(item)),
   selectCity: item => disptach(selectCity(item)),
-  buttonClicked: () => disptach(buttonClicked()),
   getWeather: item => disptach(getWeather(item))
 });
 

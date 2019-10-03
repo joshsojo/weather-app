@@ -19,7 +19,6 @@ const WeatherPage = () => {
 };
 
 const mapStateToProps = ({ weather }) => ({
-  buttonClicked: weather.buttonClicked,
   weatherData: weather.weatherData
 });
 

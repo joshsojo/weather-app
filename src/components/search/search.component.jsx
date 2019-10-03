@@ -33,8 +33,6 @@ class Search extends React.Component {
       setCountries({
         countries: options
       });
-    } else {
-      console.log("Already have list");
     }
   }
 
@@ -103,7 +101,6 @@ class Search extends React.Component {
     await selectCity({
       selectedCity
     });
-    console.log("Done");
   };
 
   handleSubmit = e => {
@@ -152,9 +149,7 @@ class Search extends React.Component {
                 <Select
                   type="search"
                   placeholder={
-                    selectedCountry.label
-                      ? selectedCountry.label
-                      : "Select Country"
+                    selectedCountry ? selectedCountry.label : "Select Country"
                   }
                   onChange={this.handleCountry}
                   options={countries.countries}
@@ -165,7 +160,7 @@ class Search extends React.Component {
                 <Select
                   type="search"
                   placeholder={
-                    selectedState.label ? selectedState.label : "Select State"
+                    selectedState ? selectedState.label : "Select State"
                   }
                   onChange={this.handleState}
                   options={states.states}
@@ -176,7 +171,7 @@ class Search extends React.Component {
                 <Select
                   type="search"
                   placeholder={
-                    selectedCity.label ? selectedCity.label : "Select City"
+                    selectedCity ? selectedCity.label : "Select City"
                   }
                   onChange={this.handleCity}
                   options={cities.cities}

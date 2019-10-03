@@ -18,31 +18,35 @@ const weatherContainer = ({
 }) => (
   <Container>
     <Row className="weather-container">
-      <Col>
-        <SideDetails
-          row1={selectedCity ? selectedCity.label : null}
-          row2={selectedCity ? selectedState.label : null}
-          row3={selectedCountry ? selectedCountry.label : null}
+      {weatherData ? (
+        <Col>
+          <SideDetails
+            row1={selectedCity ? selectedCity.label : null}
+            row2={selectedCity ? selectedState.label : null}
+            row3={selectedCountry ? selectedCountry.label : null}
+          />
+          <p>
+            Population:
+            {weatherData ? formatNumber(weatherData.city.population) : "00000"}
+          </p>
+        </Col>
+      ) : null}
+      {weatherData ? (
+        <WeatherBadge
+          day={"Today"}
+          weatherIcon={weatherData.list[0].weather[0].icon}
+          high_temp={weatherData.list[0].main.temp_max}
+          description={weatherData.list[0].weather[0].description}
+          low_temp={weatherData.list[weatherData.list.length - 1].main.temp_min}
         />
-        <p>
-          Population:
-          {weatherData ? formatNumber(weatherData.city.population) : "00000"}
-        </p>
-      </Col>
-      <WeatherBadge
-        day={"Today"}
-        weatherIcon={weatherData.list[0].weather[0].icon}
-        high_temp={weatherData.list[0].main.temp_max}
-        description={weatherData.list[0].weather[0].description}
-        low_temp={weatherData.list[weatherData.list.length - 1].main.temp_min}
-      />
+      ) : null}
       <SideDetails
         row1={`${getDay()}, ${getDate()}`}
         row2={getMonth()}
         row3={getYear()}
       />
     </Row>
-    <WeatherDetails data={weatherData.list} />
+    {weatherData ? <WeatherDetails data={weatherData.list} /> : null}
   </Container>
 );
 

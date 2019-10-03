@@ -1,7 +1,7 @@
 import WeatherActionTypes from "./weather.types";
 
 const INITIAL_STATE = {
-  buttonClicked: false,
+  celcius: false,
   weatherData: []
 };
 
@@ -10,7 +10,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
     case WeatherActionTypes.BUTTON_CLICKED:
       return {
         ...state,
-        buttonClicked: action.payload ? false : true
+        celcius: !state.celcius
       };
 
     case WeatherActionTypes.GET_WEATHER:

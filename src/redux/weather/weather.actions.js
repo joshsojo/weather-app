@@ -1,8 +1,7 @@
 import WeatherActionTypes from "./weather.types";
 
-export const buttonClicked = click => ({
-  type: WeatherActionTypes.BUTTON_CLICKED,
-  payload: click
+export const buttonClicked = () => ({
+  type: WeatherActionTypes.BUTTON_CLICKED
 });
 
 export const getWeather = data => ({

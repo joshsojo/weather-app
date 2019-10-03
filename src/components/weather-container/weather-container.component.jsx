@@ -31,9 +31,10 @@ const weatherContainer = ({
       </Col>
       <WeatherBadge
         day={"Today"}
-        weatherIcon={"10d"}
-        high_temp={"73"}
-        low_temp={"55"}
+        weatherIcon={weatherData.list[0].weather[0].icon}
+        high_temp={weatherData.list[0].main.temp_max}
+        description={weatherData.list[0].weather[0].description}
+        low_temp={weatherData.list[weatherData.list.length - 1].main.temp_min}
       />
       <SideDetails
         row1={`${getDay()}, ${getDate()}`}

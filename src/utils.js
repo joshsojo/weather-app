@@ -1,5 +1,9 @@
 export const kelvinToFehrenheit = kelvin => {
-  return (((kelvin - 273.15) * 9) / 5 + 32).toFixed(2);
+  return Math.round((((kelvin - 273.15) * 9) / 5 + 32).toFixed(2));
+};
+
+export const kelvinToCelcius = kelvin => {
+  return Math.round((kelvin - 273.15).toFixed(2));
 };
 
 export const weatherIcon = icon => {
@@ -43,17 +47,29 @@ export const getMonth = () => {
 };
 
 export const getDate = () => date.getDate();
-export const getDay = () => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  return days[date.getDay()];
+export const getDay = (index = 0) => {
+  let round = date.getDay() + index;
+  if (round >= 7) {
+    round = Math.round(round % 7);
+  }
+  switch (round) {
+    case 0:
+      return "Sunday";
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+    default:
+      return index;
+  }
 };
 
 export const extractTime = dateTime => {
@@ -75,4 +91,16 @@ export const extractTime = dateTime => {
   };
 
   return result;
+};
+
+export const getTime = hour => {
+  if (hour > 12) {
+    return `${hour - 12}PM`;
+  } else if (hour == "00") {
+    return `12AM`;
+  } else if (hour == 12) {
+    return `12PM`;
+  } else {
+    return `${parseInt(hour)}AM`;
+  }
 };

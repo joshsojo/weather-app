@@ -13,7 +13,6 @@ export const weatherIcon = icon => {
 export const formatNumber = num => {
   if (num < 1000) return num.toString();
   let value = num.toString().split("");
-  value = value;
   let count = 0;
   let newNumber = [];
   for (let i = value.length - 1; i >= 0; i--) {
@@ -96,9 +95,9 @@ export const extractTime = dateTime => {
 export const getTime = hour => {
   if (hour > 12) {
     return `${hour - 12}PM`;
-  } else if (hour == "00") {
+  } else if (hour === "00") {
     return `12AM`;
-  } else if (hour == 12) {
+  } else if (hour === 12) {
     return `12PM`;
   } else {
     return `${parseInt(hour)}AM`;

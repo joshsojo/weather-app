@@ -14,7 +14,6 @@ const Tab = ({ children, number }) => (
 const WeatherDetails = ({ data }) => {
   const numbers = [];
   let index = 0;
-  const { day } = extractTime(data[0].dt_txt);
   let prev = 0;
   data.map(list => {
     const { day } = extractTime(list.dt_txt);
@@ -24,7 +23,6 @@ const WeatherDetails = ({ data }) => {
     prev = day;
   });
   const tags = numbers;
-  console.log(tags);
   return (
     <Row>
       <Row>
@@ -39,7 +37,7 @@ const WeatherDetails = ({ data }) => {
           <Tab key={tag.day} number={getDay(index)} title={getDay()}>
             {(index = index + 1)}
             {data.map(list => {
-              const { day, hour, min } = extractTime(list.dt_txt);
+              const { day, hour } = extractTime(list.dt_txt);
               if (tag.day === day) {
                 return (
                   <WeatherBadge
